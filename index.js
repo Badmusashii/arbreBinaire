@@ -146,6 +146,111 @@ const treeIncludes2 = (root, target) => {
   return treeIncludes2(root.left, target) || treeIncludes2(root.right, target);
 };
 
+/**
+ * Calcule la somme des valeurs de tous les nœuds d'un arbre binaire en utilisant la récursivité.
+ * Cette fonction parcourt l'arbre en profondeur (DFS) et ajoute la valeur de chaque nœud rencontré.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire.
+ * @returns {number} La somme des valeurs de tous les nœuds de l'arbre.
+ */
+const treeSumm = (root) => {
+  if (root === null) return 0;
+  return root.value + treeSumm(root.left) + treeSumm(root.right);
+};
+
+/**
+ * Calcule la somme des valeurs de tous les nœuds d'un arbre binaire en utilisant une file d'attente.
+ * Cette fonction parcourt l'arbre en largeur (BFS - Breadth-First Search) et additionne les valeurs
+ * de chaque nœud visité.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire.
+ * @returns {number} La somme des valeurs de tous les nœuds de l'arbre.
+ */
+const treeSumm2 = (root) => {
+  if (root === null) return 0;
+  let summ = 0;
+  const queue = [root];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    summ += current.value;
+    if (current.left !== null) queue.push(current.left);
+    if (current.right !== null) queue.push(current.right);
+  }
+  return summ;
+};
+
+/**
+ * Trouve la plus petite valeur dans un arbre binaire en utilisant un parcours en profondeur (DFS).
+ * Cette fonction itérative utilise une pile pour parcourir l'arbre et trouver le minimum.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire.
+ * @returns {number} La plus petite valeur trouvée dans l'arbre.
+ */
+const treeMinValue = (root) => {
+  let smallest = Infinity;
+  const stack = [root];
+  while (stack.length > 0) {
+    const current = stack.pop();
+    if (current.value < smallest) smallest = current.value;
+    if (current.left !== null) queue.push(current.left);
+    if (current.right !== null) queue.push(current.right);
+  }
+  return smallest;
+};
+
+/**
+ * Trouve la plus petite valeur dans un arbre binaire en utilisant un parcours en largeur (BFS).
+ * Cette fonction itérative utilise une file d'attente pour parcourir l'arbre niveau par niveau.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire.
+ * @returns {number} La plus petite valeur trouvée dans l'arbre.
+ */
+const treeMinValue2 = (root) => {
+  let smallest = Infinity;
+  const queue = [root];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current.value < smallest) smallest = current.value;
+    if (current.left !== null) queue.push(current.left);
+    if (current.right !== null) queue.push(current.right);
+  }
+  return smallest;
+};
+
+/**
+ * Trouve la plus petite valeur dans un arbre binaire en utilisant la récursivité.
+ * Cette fonction parcourt l'arbre en profondeur et compare les valeurs des nœuds de manière récursive.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire ou d'un sous-arbre actuel.
+ * @returns {number} La plus petite valeur trouvée dans l'arbre ou sous-arbre.
+ */
+const treeMinValue3 = (root) => {
+  if (root === null) return Infinity;
+  const leftMin = treeMinValue3(root.left);
+  const rightMin = treeMinValue3(root.right);
+  return Math.min(root.value, leftMin, rightMin);
+};
+
+/**
+ * Calcule la somme maximale d'un chemin de la racine vers une feuille dans un arbre binaire.
+ * Cette fonction utilise la récursivité pour parcourir l'arbre et trouver la somme maximale.
+ *
+ * Un chemin est défini comme une séquence de nœuds allant de la racine de l'arbre à n'importe quelle feuille,
+ * et la somme du chemin est la somme de toutes les valeurs des nœuds dans ce chemin.
+ *
+ * @param {Node} root - Le nœud racine de l'arbre binaire ou d'un sous-arbre actuel.
+ * @returns {number} La somme maximale d'un chemin de la racine à une feuille.
+ */
+const maxPathSum = (root) => {
+  if (root === null) return -Infinity;
+  if (root.left === null && root.right === null) return root.value;
+  const maxChildPathSum = Math.max(
+    maxPathSum(root.left),
+    maxPathSum(root.right)
+  );
+  return (root.value = maxChildPathSum);
+};
+
 // Appels de fonctions pour tester les implémentations des parcours
 depthFirstValues(A);
 console.log(depthFirstValues2(A));
